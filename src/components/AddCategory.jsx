@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { GifExpertApp } from "../GifExpertApp"
+import PropTypes from 'prop-types'
 
-export const AddCategory = ({ NewCategory }) => { 
+export const AddCategory = ({ onNewCategory }) => {
 
-    const [inputValue, setInputValue] = useState('Demon Slayer')
+    const [inputValue, setInputValue] = useState('')
 
     // const onInputChange = event => setInputValue(event.target.value)
     const onInputChange = ({ target }) => setInputValue(target.value)
@@ -12,12 +12,12 @@ export const AddCategory = ({ NewCategory }) => {
         event.preventDefault()
         if (inputValue.trim().length <= 1) return
 
-        NewCategory(inputValue.trim())
-        setInputValue ('')
+        onNewCategory(inputValue.trim())
+        setInputValue('')
     }
 
     return (
-        <form action="post" onSubmit={onSubmit}>
+        <form action="post" onSubmit={onSubmit} aria-label="form">
             <input
                 type="text"
                 placeholder="Buscar Gifs"
@@ -28,3 +28,9 @@ export const AddCategory = ({ NewCategory }) => {
         </form>
     )
 }
+
+AddCategory.propTypes = {
+    onNewCategory: PropTypes.func.isRequired
+}
+
+
